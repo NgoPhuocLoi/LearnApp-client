@@ -50,7 +50,7 @@ export const deleteLesson = async (dispatch, id) => {
 export const updateLesson = async (dispatch, id, updatedLesson) => {
   dispatch(updateLessonStart());
   try {
-    const res = axios.put(`${apiUrl}/lessons/${id}`, updatedLesson);
+    const res = await axios.put(`${apiUrl}/lessons/${id}`, updatedLesson);
     if (res.data.success) {
       dispatch(updateLessonSuccess(res.data.lesson));
     }

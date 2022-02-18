@@ -10,6 +10,7 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
     title: "",
     driveUrl: "",
     formUrl: "",
+    type: "READING",
   });
   const handleClose = () => {
     setOpenAddModal(false);
@@ -17,6 +18,7 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
       title: "",
       driveUrl: "",
       formUrl: "",
+      type: "READING",
     });
   };
 
@@ -84,6 +86,15 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
               placeholder="Enter Google Form Url"
             />
             <Form.Text className="text-muted">Required</Form.Text>
+            <Form.Select
+              aria-label="Default select example"
+              className="mt-3"
+              name="type"
+              onChange={handleOnchangeAddLessonForm}
+            >
+              <option value="READING">Reading</option>
+              <option value="LISTENING">Listening</option>
+            </Form.Select>
           </Form.Group>
         </Form>
       </Modal.Body>

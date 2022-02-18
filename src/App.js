@@ -4,6 +4,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import EnglishPage from "./views/EnglishPage";
 import EnglishTest from "./views/EnglishTest";
+import HomePage from "./views/HomePage";
 import UnsupportedPage from "./views/UnsupportedPage";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <NavBar />
 
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/english" element={<EnglishPage />} />
         <Route path="/english/:id" element={<EnglishTest />} />
         <Route path="/math" element={<UnsupportedPage />} />

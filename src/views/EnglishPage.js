@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import addBtn from "../assets/plus-circle-fill.svg";
 import AddLessonModal from "../components/lessons/AddLessonModal";
 import EditLessonModal from "../components/lessons/EditLessonModal";
+import Lessons from "../components/lessons/Lessons";
 import SingleLesson from "../components/lessons/SingleLesson";
 import Loading from "../components/Loading";
+import TabList from "../components/TabList";
 import ToastMessage from "../components/ToastMessage";
 import { getAllLessons } from "../redux/apiRequest";
 
@@ -18,6 +20,7 @@ function EnglishPage() {
     message: "",
     isShow: false,
   });
+  const [lessonType, setLessonType] = useState("ALL");
 
   useEffect(() => {
     getAllLessons(dispatch);
@@ -25,13 +28,8 @@ function EnglishPage() {
 
   return (
     <>
-      <Row className="mx-2 mt-2">
-        {lessonState.allLessons?.map((lesson) => (
-          <Col md={3} sm={4} key={lesson._id} className="mt-3">
-            <SingleLesson title={lesson.title} id={lesson._id} />
-          </Col>
-        ))}
-      </Row>
+      <TabList setLessonType={setLessonType} />
+      <Lessons type={lessonType} />
       <Button
         className="add-btn"
         variant="outline-light"

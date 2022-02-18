@@ -26,6 +26,7 @@ function EditLessonModal({ setShowToast }) {
         title: "",
         driveUrl: "",
         formUrl: "",
+        type: "READING",
       })
     );
   };
@@ -37,7 +38,7 @@ function EditLessonModal({ setShowToast }) {
     });
   };
 
-  const handleSubmitAddLesson = async () => {
+  const handleSubmitEditLesson = async () => {
     const success = await updateLesson(
       dispatch,
       updatedLesson._id,
@@ -99,6 +100,16 @@ function EditLessonModal({ setShowToast }) {
               placeholder="Enter Google Form Url"
             />
             <Form.Text className="text-muted">Required</Form.Text>
+            <Form.Select
+              aria-label="Default select example"
+              className="mt-3"
+              name="type"
+              onChange={handleOnchangeAddLessonForm}
+              value={updatedLesson.type}
+            >
+              <option value="READING">Reading</option>
+              <option value="LISTENING">Listening</option>
+            </Form.Select>
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -106,8 +117,8 @@ function EditLessonModal({ setShowToast }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSubmitAddLesson}>
-          Add
+        <Button variant="primary" onClick={handleSubmitEditLesson}>
+          Edit
         </Button>
       </Modal.Footer>
     </Modal>
