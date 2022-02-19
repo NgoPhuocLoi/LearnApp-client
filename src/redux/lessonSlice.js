@@ -9,6 +9,7 @@ const lessonSlice = createSlice({
       driveUrl: "",
       formUrl: "",
     },
+    doneLessons: JSON.parse(localStorage.getItem("doneLessons")) || [],
     isShowUpdateModal: false,
     isFetching: false,
     error: false,
@@ -72,6 +73,14 @@ const lessonSlice = createSlice({
     showUpdateModal: (state, action) => {
       state.isShowUpdateModal = action.payload;
     },
+    addDoneLesson: (state, action) => {
+      state.doneLessons = [...state.doneLessons, action.payload];
+    },
+    removeDoneLesson: (state, action) => {
+      state.doneLessons = state.doneLessons.filter(
+        (lesson) => lesson !== action.payload
+      );
+    },
   },
 });
 
@@ -91,6 +100,8 @@ export const {
   updateLessonSuccess,
   updateUpdatedLesson,
   showUpdateModal,
+  addDoneLesson,
+  removeDoneLesson,
 } = actions;
 
 export default reducer;

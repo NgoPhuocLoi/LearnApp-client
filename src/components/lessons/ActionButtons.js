@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import doBtn from "../../assets/play-btn.svg";
 import editBtn from "../../assets/pencil.svg";
 import deleteBtn from "../../assets/trash.svg";
+import checkBtn from "../../assets/check-circle.svg";
+import checkFillBtn from "../../assets/check-circle-fill.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteLesson } from "../../redux/apiRequest";
-import { showUpdateModal, updateUpdatedLesson } from "../../redux/lessonSlice";
+import {
+  showUpdateModal,
+  updateUpdatedLesson,
+  addDoneLesson,
+  removeDoneLesson,
+} from "../../redux/lessonSlice";
 
 function ActionButtons({ id }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const allLessons = useSelector((state) => state.lesson.allLessons);
-
+  const doneLessons = useSelector((state) => state.lesson.doneLessons);
   const handleDeleteLesson = (id) => {
     deleteLesson(dispatch, id);
   };
@@ -23,6 +30,16 @@ function ActionButtons({ id }) {
     );
     dispatch(updateUpdatedLesson(lessonClickedToUpdate));
     dispatch(showUpdateModal(true));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("doneLessons", JSON.stringify(doneLessons));
+  }, [doneLessons]);
+
+  const handleChangeDoneLesson = () => {
+    doneLessons.includes(id)
+      ? dispatch(removeDoneLesson(id))
+      : dispatch(addDoneLesson(id));
   };
   return (
     <div className="mt-2">
@@ -46,6 +63,17 @@ function ActionButtons({ id }) {
           alt="btn"
           width={"28"}
           onClick={() => handleDeleteLesson(id)}
+        />
+      </Button>
+      <Button
+        variant="outline-light"
+        className="ms-2"
+        onClick={handleChangeDoneLesson}
+      >
+        <img
+          src={doneLessons.includes(id) ? checkFillBtn : checkBtn}
+          alt="btn"
+          width={"28"}
         />
       </Button>
     </div>

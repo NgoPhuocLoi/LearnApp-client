@@ -15,6 +15,7 @@ function EnglishPage() {
   const dispatch = useDispatch();
   const lessonState = useSelector((state) => state.lesson);
   const [isOpenAddModal, setOpenAddModal] = useState(false);
+  const [layout, setLayout] = useState(1);
   const [showToast, setShowToast] = useState({
     type: "",
     message: "",
@@ -28,8 +29,12 @@ function EnglishPage() {
 
   return (
     <>
-      <TabList setLessonType={setLessonType} />
-      <Lessons type={lessonType} />
+      <TabList
+        setLessonType={setLessonType}
+        layout={layout}
+        setLayout={setLayout}
+      />
+      <Lessons type={lessonType} layout={layout} />
       <Button
         className="add-btn"
         variant="outline-light"
