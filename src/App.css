@@ -1,14 +1,7 @@
-.test-container {
+.app__flex {
   display: flex;
-  justify-content: space-between;
-}
-.frame-1 {
-  width: 70%;
-  height: 100vh;
-}
-.frame-2 {
-  width: 30%;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-btn {

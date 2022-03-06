@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import doBtn from "../../assets/play-btn.svg";
-import editBtn from "../../assets/pencil.svg";
-import deleteBtn from "../../assets/trash.svg";
-import checkBtn from "../../assets/check-circle.svg";
-import checkFillBtn from "../../assets/check-circle-fill.svg";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteLesson } from "../../redux/apiRequest";
+import { useNavigate } from "react-router-dom";
+import checkFillBtn from "../../assets/check-circle-fill.svg";
+import checkBtn from "../../assets/check-circle.svg";
+import editBtn from "../../assets/pencil.svg";
+import doBtn from "../../assets/play-btn.svg";
+import deleteBtn from "../../assets/trash.svg";
+import { deleteLesson } from "../../redux/apiRequest/lessonRequest";
 import {
-  showUpdateModal,
-  updateUpdatedLesson,
   addDoneLesson,
   removeDoneLesson,
-} from "../../redux/lessonSlice";
+  showUpdateModal,
+  updateUpdatedLesson,
+} from "../../redux/slices/lessonSlice";
 
 function ActionButtons({ id }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const allLessons = useSelector((state) => state.lesson.allLessons);
   const doneLessons = useSelector((state) => state.lesson.doneLessons);
+  const {
+    user: { isAdmin },
+  } = useSelector((state) => state.auth);
   const handleDeleteLesson = (id) => {
     deleteLesson(dispatch, id);
   };
@@ -50,21 +53,25 @@ function ActionButtons({ id }) {
       >
         <img src={doBtn} alt="btn" width={"28"} />
       </Button>
-      <Button
-        variant="outline-light"
-        className="ms-2"
-        onClick={handleWhenClickEditBtn}
-      >
-        <img src={editBtn} alt="btn" width={"28"} />
-      </Button>
-      <Button variant="outline-light" className="ms-2">
-        <img
-          src={deleteBtn}
-          alt="btn"
-          width={"28"}
-          onClick={() => handleDeleteLesson(id)}
-        />
-      </Button>
+      {isAdmin && (
+        <>
+          <Button
+            variant="outline-light"
+            className="ms-2"
+            onClick={handleWhenClickEditBtn}
+          >
+            <img src={editBtn} alt="btn" width={"28"} />
+          </Button>
+          <Button variant="outline-light" className="ms-2">
+            <img
+              src={deleteBtn}
+              alt="btn"
+              width={"28"}
+              onClick={() => handleDeleteLesson(id)}
+            />
+          </Button>
+        </>
+      )}
       <Button
         variant="outline-light"
         className="ms-2"

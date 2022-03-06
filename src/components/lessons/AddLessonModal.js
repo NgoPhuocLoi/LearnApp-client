@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { addLesson, getAllLessons } from "../../redux/apiRequest";
+import { addLesson, getAllLessons } from "../../redux/apiRequest/lessonRequest";
 
 function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
   const dispatch = useDispatch();

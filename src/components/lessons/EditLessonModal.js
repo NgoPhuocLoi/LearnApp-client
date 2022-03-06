@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addLesson, getAllLessons, updateLesson } from "../../redux/apiRequest";
-import { showUpdateModal, updateUpdatedLesson } from "../../redux/lessonSlice";
+import {
+  getAllLessons,
+  updateLesson,
+} from "../../redux/apiRequest/lessonRequest";
+import {
+  showUpdateModal,
+  updateUpdatedLesson,
+} from "../../redux/slices/lessonSlice";
 
 function EditLessonModal({ setShowToast }) {
   const dispatch = useDispatch();
@@ -17,6 +23,7 @@ function EditLessonModal({ setShowToast }) {
       title: updatedLesson.title,
       formUrl: updatedLesson.formUrl,
       driveUrl: updatedLesson.driveUrl,
+      type: updatedLesson.type,
     });
   }, [updatedLesson]);
   const handleClose = () => {
@@ -44,7 +51,6 @@ function EditLessonModal({ setShowToast }) {
       updatedLesson._id,
       editLessonForm
     );
-    console.log("success", success);
     handleClose();
     if (success) {
       setShowToast({
@@ -105,7 +111,7 @@ function EditLessonModal({ setShowToast }) {
               className="mt-3"
               name="type"
               onChange={handleOnchangeAddLessonForm}
-              value={updatedLesson.type}
+              value={editLessonForm.type}
             >
               <option value="READING">Reading</option>
               <option value="LISTENING">Listening</option>

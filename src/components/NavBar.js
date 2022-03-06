@@ -1,8 +1,17 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/apiRequest/authRequest";
 
 function NavBar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogoutUser = () => {
+    logout(dispatch);
+    navigate("/login");
+  };
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>
@@ -22,6 +31,13 @@ function NavBar() {
               Program
             </Nav.Link>
           </Nav>
+          <Button
+            variant="danger"
+            className="ms-auto"
+            onClick={handleLogoutUser}
+          >
+            Logout
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

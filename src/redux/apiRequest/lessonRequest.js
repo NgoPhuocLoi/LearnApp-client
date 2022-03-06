@@ -12,8 +12,8 @@ import {
   updateLessonFailed,
   updateLessonStart,
   updateLessonSuccess,
-} from "./lessonSlice";
-import { apiUrl } from "./constant";
+} from "../slices/lessonSlice";
+import { apiUrl } from "../constant";
 
 export const getAllLessons = async (dispatch) => {
   dispatch(getLessonsStart());

@@ -1,23 +1,71 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
-import EnglishPage from "./views/EnglishPage";
-import EnglishTest from "./views/EnglishTest";
-import HomePage from "./views/HomePage";
-import UnsupportedPage from "./views/UnsupportedPage";
+import Navbar from "./components/NavBar";
+import {
+  AuthPage,
+  EnglishPage,
+  EnglishTest,
+  HomePage,
+  UnsupportedPage,
+} from "./views";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
+import { loadUser } from "./redux/apiRequest/authRequest";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    loadUser(dispatch);
+  }, []);
   return (
     <div className="App">
-      <NavBar />
-
+      <Navbar />;
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/english" element={<EnglishPage />} />
-        <Route path="/english/:id" element={<EnglishTest />} />
-        <Route path="/math" element={<UnsupportedPage />} />
-        <Route path="/program" element={<UnsupportedPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<AuthPage type="login" />} />
+        <Route path="/register" element={<AuthPage type="register" />} />
+
+        <Route
+          path="/english"
+          element={
+            <ProtectedRoute>
+              <EnglishPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/english/:id"
+          element={
+            <ProtectedRoute>
+              <EnglishTest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/math"
+          element={
+            <ProtectedRoute>
+              <UnsupportedPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/program"
+          element={
+            <ProtectedRoute>
+              <UnsupportedPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

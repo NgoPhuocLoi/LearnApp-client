@@ -1,17 +1,12 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { useSelector } from "react-redux";
-
+import { useParams } from "react-router-dom";
+import "./EnglishTest.scss";
 function EnglishTest() {
   const { id } = useParams();
   const allLessons = useSelector((state) => state.lesson.allLessons);
   const currentLesson = allLessons.find((lesson) => lesson._id === id);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  document.onresize = () => {
-    setScreenWidth(window.innerWidth);
-    console.log(screenWidth);
-    console.log(123);
-  };
+
   return (
     <div className="test-container">
       <iframe
