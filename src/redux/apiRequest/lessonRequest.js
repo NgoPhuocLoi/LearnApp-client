@@ -12,6 +12,9 @@ import {
   updateLessonFailed,
   updateLessonStart,
   updateLessonSuccess,
+  addDoneLesson,
+  removeDoneLesson,
+  getDoneLessons,
 } from "../slices/lessonSlice";
 import { apiUrl } from "../constant";
 
@@ -58,5 +61,23 @@ export const updateLesson = async (dispatch, id, updatedLesson) => {
   } catch (error) {
     dispatch(updateLessonFailed());
     return false;
+  }
+};
+
+export const updateDoneLesson = async (dispatch, id, type) => {
+  dispatch(updateLessonStart());
+
+  try {
+    const res = await axios.put(`${apiUrl}/lessons/complete/${type}/${id}`);
+    if (res.data.success) {
+      if (type === "add") {
+        dispatch(addDoneLesson(id));
+      } else {
+        dispatch(removeDoneLesson(id));
+      }
+    }
+  } catch (error) {
+    console.log("error", error);
+    dispatch(updateLessonFailed());
   }
 };

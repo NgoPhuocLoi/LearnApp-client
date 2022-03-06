@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import SingleLesson from "./SingleLesson";
@@ -6,9 +6,17 @@ import SingleLesson from "./SingleLesson";
 function Lessons({ type, layout }) {
   const lessonState = useSelector((state) => state.lesson);
   const doneLessons = lessonState.doneLessons;
+  const [sortedLessons, setSortedLessons] = useState([]);
+  useEffect(() => {
+    const lesson = [...lessonState.allLessons];
+    lesson.sort(
+      (a, b) => Number(a.title.split(" ")[1]) - Number(b.title.split(" ")[1])
+    );
+    setSortedLessons(lesson);
+  }, [lessonState.allLessons]);
   return (
     <Row className="mx-2 mt-2">
-      {lessonState.allLessons?.map((lesson) => {
+      {sortedLessons.map((lesson) => {
         switch (type) {
           case "ALL":
             return (

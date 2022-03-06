@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,10 +7,11 @@ import checkBtn from "../../assets/check-circle.svg";
 import editBtn from "../../assets/pencil.svg";
 import doBtn from "../../assets/play-btn.svg";
 import deleteBtn from "../../assets/trash.svg";
-import { deleteLesson } from "../../redux/apiRequest/lessonRequest";
 import {
-  addDoneLesson,
-  removeDoneLesson,
+  deleteLesson,
+  updateDoneLesson,
+} from "../../redux/apiRequest/lessonRequest";
+import {
   showUpdateModal,
   updateUpdatedLesson,
 } from "../../redux/slices/lessonSlice";
@@ -18,11 +19,8 @@ import {
 function ActionButtons({ id }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allLessons = useSelector((state) => state.lesson.allLessons);
-  const doneLessons = useSelector((state) => state.lesson.doneLessons);
-  const {
-    user: { isAdmin },
-  } = useSelector((state) => state.auth);
+  const { allLessons, doneLessons } = useSelector((state) => state.lesson);
+  const { user } = useSelector((state) => state.auth);
   const handleDeleteLesson = (id) => {
     deleteLesson(dispatch, id);
   };
@@ -35,14 +33,10 @@ function ActionButtons({ id }) {
     dispatch(showUpdateModal(true));
   };
 
-  useEffect(() => {
-    localStorage.setItem("doneLessons", JSON.stringify(doneLessons));
-  }, [doneLessons]);
-
   const handleChangeDoneLesson = () => {
-    doneLessons.includes(id)
-      ? dispatch(removeDoneLesson(id))
-      : dispatch(addDoneLesson(id));
+    let type = doneLessons.includes(id) ? "remove" : "add";
+
+    updateDoneLesson(dispatch, id, type);
   };
   return (
     <div className="mt-2">
@@ -53,7 +47,7 @@ function ActionButtons({ id }) {
       >
         <img src={doBtn} alt="btn" width={"28"} />
       </Button>
-      {isAdmin && (
+      {user.isAdmin && (
         <>
           <Button
             variant="outline-light"
