@@ -1,12 +1,13 @@
 import React from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/apiRequest/authRequest";
 
 function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   const handleLogoutUser = () => {
     logout(dispatch);
@@ -31,13 +32,18 @@ function NavBar() {
               Program
             </Nav.Link>
           </Nav>
-          <Button
-            variant="danger"
-            className="ms-auto"
-            onClick={handleLogoutUser}
-          >
-            Logout
-          </Button>
+          <div className="d-flex">
+            <h4 className="text-white me-4 mb-0 mt-1">
+              Welcome {user?.username}
+            </h4>
+            <Button
+              variant="danger"
+              className="ms-auto"
+              onClick={handleLogoutUser}
+            >
+              Logout
+            </Button>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

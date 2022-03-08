@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/routing/ProtectedRoute";
 import { loadUser } from "./redux/apiRequest/authRequest";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import FolderLanding from "./views/folder/FolderLanding";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Navbar />;
+      <Navbar />
       <Routes>
         <Route
           path="/"
@@ -39,6 +40,14 @@ function App() {
           element={
             <ProtectedRoute>
               <EnglishPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/english/folder/:id"
+          element={
+            <ProtectedRoute>
+              <FolderLanding />
             </ProtectedRoute>
           }
         />

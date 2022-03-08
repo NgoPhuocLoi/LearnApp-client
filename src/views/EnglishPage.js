@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Breadcrumb, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import addBtn from "../assets/plus-circle-fill.svg";
-import AddLessonModal from "../components/lessons/AddLessonModal";
-import EditLessonModal from "../components/lessons/EditLessonModal";
-import Lessons from "../components/lessons/Lessons";
+import AddFolderModal from "../components/folders/AddFolderModal/AddFolderModal";
+import EditFolderModal from "../components/folders/EditFolderModal/EditFolderModal";
+import Folders from "../components/folders/Folders";
 import Loading from "../components/Loading";
-import TabList from "../components/TabList";
 import ToastMessage from "../components/ToastMessage";
+import { getAllFolders } from "../redux/apiRequest/folderRequest";
 import { getAllLessons } from "../redux/apiRequest/lessonRequest";
 
 function EnglishPage() {
   const dispatch = useDispatch();
-  const lessonState = useSelector((state) => state.lesson);
+  const folderState = useSelector((state) => state.folder);
   const { user } = useSelector((state) => state.auth);
   const [isOpenAddModal, setOpenAddModal] = useState(false);
-  const [layout, setLayout] = useState(1);
+
   const [showToast, setShowToast] = useState({
     type: "",
     message: "",
     isShow: false,
   });
-  const [lessonType, setLessonType] = useState("ALL");
+
+  const fetchData = async () => {
+    await getAllLessons(dispatch);
+    await getAllFolders(dispatch);
+  };
 
   useEffect(() => {
-    getAllLessons(dispatch);
+    fetchData();
   }, []);
 
   return (
     <>
-      <TabList
-        setLessonType={setLessonType}
-        layout={layout}
-        setLayout={setLayout}
-      />
-      <Lessons type={lessonType} layout={layout} />
+      <Breadcrumb className="ms-4 mt-3">
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
+
+        <Breadcrumb.Item active>English</Breadcrumb.Item>
+      </Breadcrumb>
       {user.isAdmin && (
         <>
           <Button
@@ -44,17 +50,18 @@ function EnglishPage() {
           >
             <img src={addBtn} alt="add-btn" width={50} />
           </Button>
-          <AddLessonModal
+
+          <AddFolderModal
             isOpenAddModal={isOpenAddModal}
             setOpenAddModal={setOpenAddModal}
-            showToast={showToast}
-            setShowToast={setShowToast}
           />
-          <EditLessonModal setShowToast={setShowToast} />
+          <EditFolderModal />
           <ToastMessage showToast={showToast} setShowToast={setShowToast} />
         </>
       )}
-      {lessonState.isFetching && <Loading />}
+
+      <Folders />
+      {folderState.isFetching && <Loading />}
     </>
   );
 }

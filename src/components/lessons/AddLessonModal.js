@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLesson, getAllLessons } from "../../redux/apiRequest/lessonRequest";
 
 function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
   const dispatch = useDispatch();
+  const { currentFolder } = useSelector((state) => state.folder);
 
   const [addLessonForm, setAddLessonForm] = useState({
     title: "",
@@ -30,7 +31,10 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
   };
 
   const handleSubmitAddLesson = async () => {
-    const success = await addLesson(dispatch, addLessonForm);
+    const success = await addLesson(dispatch, {
+      ...addLessonForm,
+      folder: currentFolder.id,
+    });
     handleClose();
     if (success) {
       setShowToast({
