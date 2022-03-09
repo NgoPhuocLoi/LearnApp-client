@@ -9,6 +9,7 @@ import Lessons from "../../components/lessons/Lessons";
 import Loading from "../../components/Loading";
 import TabList from "../../components/TabList";
 import ToastMessage from "../../components/ToastMessage";
+import "./FolderLanding.scss";
 
 const FolderLanding = () => {
   const { currentFolder } = useSelector((state) => state.folder);
@@ -23,7 +24,7 @@ const FolderLanding = () => {
     isShow: false,
   });
   return (
-    <>
+    <div className="folder-landing">
       <Breadcrumb className="mt-3 ms-4">
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
@@ -59,7 +60,7 @@ const FolderLanding = () => {
         </>
       )}
       {lessonState.isFetching && <Loading />}
-    </>
+    </div>
   );
 };
 

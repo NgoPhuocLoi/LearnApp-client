@@ -4,6 +4,29 @@
   align-items: center;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --primary-color: #ff7f27;
+  --header-height: 70px;
+}
+
 .add-btn {
   position: fixed;
   bottom: 10%;

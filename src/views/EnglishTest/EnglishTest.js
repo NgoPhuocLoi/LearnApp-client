@@ -10,7 +10,7 @@ function EnglishTest() {
   const currentLesson = allLessons.find((lesson) => lesson._id === id);
 
   return (
-    <>
+    <div className="english-test">
       <Breadcrumb className="mt-3 ms-4">
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
@@ -37,7 +37,7 @@ function EnglishTest() {
           src={currentLesson.formUrl}
         ></iframe>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -12,17 +12,20 @@ import {
 import ProtectedRoute from "./components/routing/ProtectedRoute";
 import { loadUser } from "./redux/apiRequest/authRequest";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FolderLanding from "./views/folder/FolderLanding";
+import Header from "./components/layout/Header/Header";
 
 function App() {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
   useEffect(() => {
     loadUser(dispatch);
   }, []);
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar /> */}
+      {isAuthenticated && <Header />}
       <Routes>
         <Route
           path="/"
