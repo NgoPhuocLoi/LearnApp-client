@@ -26,23 +26,6 @@ export const registerUser = async (dispatch, newUser) => {
   }
 };
 
-export const loginUser = async (dispatch, user) => {
-  dispatch(authStart());
-
-  try {
-    const res = await axios.post(`${apiUrl}/auth/login`, user);
-    if (res.data.success) {
-      dispatch(loginSuccess(res.data));
-      dispatch(getDoneLessons(res.data.user.doneLessons));
-    }
-
-    return res.data.success;
-  } catch (error) {
-    console.log("error", error);
-    dispatch(authFailed(error.response.data.message));
-  }
-};
-
 export const loadUser = async (dispatch) => {
   dispatch(authStart());
   if (localStorage["accessToken"]) {
@@ -59,6 +42,24 @@ export const loadUser = async (dispatch) => {
     return res.data.success;
   } catch (error) {
     dispatch(authFailed());
+  }
+};
+
+export const loginUser = async (dispatch, user) => {
+  dispatch(authStart());
+
+  try {
+    const res = await axios.post(`${apiUrl}/auth/login`, user);
+    if (res.data.success) {
+      loadUser(dispatch);
+      dispatch(loginSuccess(res.data));
+      dispatch(getDoneLessons(res.data.user.doneLessons));
+    }
+
+    return res.data.success;
+  } catch (error) {
+    console.log("error", error);
+    dispatch(authFailed(error.response.data.message));
   }
 };
 
