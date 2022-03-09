@@ -70,29 +70,31 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
             <Form.Text className="text-muted">Required</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Google Drive Url</Form.Label>
+            <Form.Label>Google Drive URL</Form.Label>
             <Form.Control
               onChange={handleOnchangeAddLessonForm}
               value={addLessonForm.driveUrl}
               name="driveUrl"
               type="text"
-              placeholder="Enter Google Drive Url"
+              placeholder="Enter Google Drive URL"
             />
             <Form.Text className="text-muted">Required</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Google Form Url</Form.Label>
+            <Form.Label>Google Form URL</Form.Label>
             <Form.Control
               onChange={handleOnchangeAddLessonForm}
               value={addLessonForm.formUrl}
               name="formUrl"
               type="text"
-              placeholder="Enter Google Form Url"
+              placeholder="Enter Google Form URL"
             />
             <Form.Text className="text-muted">Required</Form.Text>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Category</Form.Label>
             <Form.Select
               aria-label="Default select example"
-              className="mt-3"
               name="type"
               onChange={handleOnchangeAddLessonForm}
             >

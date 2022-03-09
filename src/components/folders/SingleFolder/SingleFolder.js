@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import folderIcon from "../../../assets/folder-fill.svg";
 import {
@@ -13,6 +13,7 @@ const SingleFolder = ({ title, index, id }) => {
   const ref = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
   const handleOpenFolder = () => {
     dispatch(setCurrentFolder({ id, title }));
     navigate(`/english/folder/${id}`);
@@ -26,7 +27,7 @@ const SingleFolder = ({ title, index, id }) => {
         onClick={(e) => ref.current.classList.toggle("active")}
         onContextMenu={(e) => {
           e.preventDefault();
-          dispatch(setFolderActive(index));
+          if (user.isAdmin) dispatch(setFolderActive(index));
         }}
       >
         <img src={folderIcon} alt="folder-icon" />

@@ -18,7 +18,7 @@ function Lessons({ type, layout }) {
     );
   }, [lessonState.allLessons]);
   return (
-    <Row className="mx-2 mt-2">
+    <Row className="mx-2 mt-2 mb-4">
       {sortedLessons.map((lesson) => {
         switch (type) {
           case "ALL":
