@@ -10,7 +10,7 @@ function LoginPage({ type }) {
   if (isAuthenticated) return <Navigate to="/" />;
 
   return (
-    <div className="landing-background   app__flex">
+    <div className="landing-background app__flex">
       {isFetching ? (
         <Spinner animation="border" variant="white" />
       ) : type === "login" ? (
