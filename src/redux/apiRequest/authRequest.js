@@ -51,8 +51,11 @@ export const loginUser = async (dispatch, user) => {
   try {
     const res = await axios.post(`${apiUrl}/auth/login`, user);
     if (res.data.success) {
-      await loadUser(dispatch);
       dispatch(loginSuccess(res.data));
+      if (localStorage["accessToken"]) {
+        console.log("here");
+        setAuthToken(localStorage["accessToken"]);
+      }
       dispatch(getDoneLessons(res.data.user.doneLessons));
     }
 
