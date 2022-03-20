@@ -43,11 +43,24 @@
     // transform: translateX(100%);
     opacity: 0;
 
-    .welcome-text {
-      text-align: center;
+    .mb-menu__user-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 10px;
+      .welcome-text {
+        text-align: center;
+
+        margin-bottom: 10px;
+        // padding-bottom: 5px;
+      }
+
+      .mb-menu__user-ava {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
       border-bottom: 1px solid #e8ebed;
-      margin-bottom: 10px;
-      padding-bottom: 5px;
     }
 
     .mb-menu__list {
@@ -71,7 +84,7 @@
 
     .mb-menu__logout-btn {
       padding: 12px 36px;
-      width: 45%;
+      // width: 45%;
 
       background-color: #fff;
       border-radius: 40px;
@@ -88,6 +101,9 @@
         color: #fff;
       }
     }
+  }
+  @media screen and (min-width: 700px) {
+    display: none;
   }
 }
 

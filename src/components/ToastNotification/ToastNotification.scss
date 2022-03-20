@@ -1,0 +1,26 @@
+.toast-container {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 10;
+  top: 80px;
+  width: 240px;
+  right: 20px;
+  //   height: 30px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: #fff;
+  animation: showToast 0.1s ease-in;
+}
+
+@keyframes showToast {
+  from {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

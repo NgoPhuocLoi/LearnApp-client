@@ -8,6 +8,7 @@ import EditFolderModal from "../../components/folders/EditFolderModal/EditFolder
 import Folders from "../../components/folders/Folders";
 import Loading from "../../components/Loading";
 import ToastMessage from "../../components/ToastMessage";
+import ToastNotification from "../../components/ToastNotification/ToastNotification";
 import { getAllFolders } from "../../redux/apiRequest/folderRequest";
 import { getAllLessons } from "../../redux/apiRequest/lessonRequest";
 import "./EnglishPage.scss";
@@ -55,9 +56,10 @@ function EnglishPage() {
           <AddFolderModal
             isOpenAddModal={isOpenAddModal}
             setOpenAddModal={setOpenAddModal}
+            setShowToast={setShowToast}
           />
           <EditFolderModal />
-          <ToastMessage showToast={showToast} setShowToast={setShowToast} />
+          {showToast.isShow && <ToastNotification showToast={showToast} />}
         </>
       )}
 

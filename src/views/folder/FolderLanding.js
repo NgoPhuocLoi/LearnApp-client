@@ -9,6 +9,7 @@ import Lessons from "../../components/lessons/Lessons";
 import Loading from "../../components/Loading";
 import TabList from "../../components/TabList";
 import ToastMessage from "../../components/ToastMessage";
+import ToastNotification from "../../components/ToastNotification/ToastNotification";
 import "./FolderLanding.scss";
 
 const FolderLanding = () => {
@@ -56,7 +57,7 @@ const FolderLanding = () => {
             setShowToast={setShowToast}
           />
           <EditLessonModal setShowToast={setShowToast} />
-          <ToastMessage showToast={showToast} setShowToast={setShowToast} />
+          {showToast.isShow && <ToastNotification showToast={showToast} />}
         </>
       )}
       {lessonState.isFetching && <Loading />}

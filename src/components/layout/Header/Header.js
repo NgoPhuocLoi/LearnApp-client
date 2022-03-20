@@ -1,21 +1,30 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import menuIcon from "../../../assets/list.svg";
 import logo from "../../../assets/logo.png";
 import { logout } from "../../../redux/apiRequest/authRequest";
+import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import UserMenu from "../UserMenu/UserMenu";
 import "./Header.scss";
+
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "English", path: "/english" },
+  { name: "Math", path: "/math" },
+  { name: "Program", path: "/program" },
+];
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogoutUser = () => {
-    logout(dispatch);
-    navigate("/login");
-  };
+
   return (
     <>
       <header className="header-container">
@@ -29,33 +38,48 @@ const Header = () => {
           </div>
         </div>
         <ul className="header__nav">
-          <li className="header__nav-item">
-            <Link to="/">Home</Link>
-            <div></div>
-          </li>
-          <li className="header__nav-item">
-            <Link to="/english">English</Link>
-            <div></div>
-          </li>
-          <li className="header__nav-item">
-            <Link to="/math">Math</Link>
-            <div></div>
-          </li>
-          <li className="header__nav-item">
-            <Link to="/program">Program</Link>
-            <div></div>
-          </li>
+          {pages.map((page, index) => (
+            <li
+              className={
+                currentPage === index
+                  ? "header__nav-item active"
+                  : "header__nav-item"
+              }
+              key={index}
+              onClick={() => setCurrentPage(index)}
+            >
+              <Link to={page.path}>{page.name}</Link>
+              <div></div>
+            </li>
+          ))}
         </ul>
         <div className="header-actions">
           {/* <Link to="/login" className="header-actions__btn login">
           Login
         </Link> */}
-          <button
+          {/* <button
             className="header-actions__btn logout"
             onClick={handleLogoutUser}
           >
             Logout
-          </button>
+          </button> */}
+
+          {user?.avatar ? (
+            <img
+              className="header-actions__avatar"
+              src={user?.avatar}
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            />
+          ) : (
+            <div
+              className="header-actions__avatar"
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            >
+              <DefaultAvatar />
+            </div>
+          )}
+
+          {showUserMenu && <UserMenu setShowUserMenu={setShowUserMenu} />}
 
           <img
             src={menuIcon}

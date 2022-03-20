@@ -25,7 +25,10 @@ function LoginForm() {
     e.preventDefault();
 
     try {
-      const success = await registerUser(dispatch, userRegisterForm);
+      const success = await registerUser(dispatch, {
+        ...userRegisterForm,
+        displayName: username,
+      });
       if (success) {
         navigate("/login");
         resetErrorMsg("");

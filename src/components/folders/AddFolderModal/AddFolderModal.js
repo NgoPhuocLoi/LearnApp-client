@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createFolder } from "../../../redux/apiRequest/folderRequest";
 
-const AddFolderModal = ({ isOpenAddModal, setOpenAddModal }) => {
+const AddFolderModal = ({ isOpenAddModal, setOpenAddModal, setShowToast }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const handleClose = () => {
@@ -12,8 +12,29 @@ const AddFolderModal = ({ isOpenAddModal, setOpenAddModal }) => {
   };
 
   const handleCreateFolder = async () => {
-    await createFolder(dispatch, { title });
+    const success = await createFolder(dispatch, { title });
     handleClose();
+    if (success) {
+      setShowToast({
+        type: "success",
+        message: "Create successfully",
+        isShow: true,
+      });
+    } else {
+      setShowToast({
+        type: "fail",
+        message: "Create failed. Try again!",
+        isShow: true,
+      });
+    }
+
+    setTimeout(() => {
+      setShowToast({
+        type: "",
+        message: "",
+        isShow: false,
+      });
+    }, 2000);
   };
   return (
     <Modal show={isOpenAddModal} onHide={handleClose}>

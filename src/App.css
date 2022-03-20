@@ -10,6 +10,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
 }
 
 ul {
@@ -24,6 +25,7 @@ a {
 
 :root {
   --primary-color: #ff7f27;
+  --danger-color: #dc3545;
   --header-height: 70px;
 }
 

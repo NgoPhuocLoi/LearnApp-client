@@ -1,12 +1,22 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/apiRequest/authRequest";
+import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import "./MobileMenu.scss";
+
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "English", path: "/english" },
+  { name: "Math", path: "/math" },
+  { name: "Program", path: "/program" },
+  { name: "Setting", path: "/setting" },
+];
 
 const MobileMenu = ({ showMenu, setShowMenu }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const handleLogoutUser = () => {
     logout(dispatch);
     Navigate("/login");
@@ -18,40 +28,33 @@ const MobileMenu = ({ showMenu, setShowMenu }) => {
         onClick={() => setShowMenu(!showMenu)}
       ></div>
       <div className="mb-menu-container">
-        <h3 className="welcome-text">Welcome Admin</h3>
+        <div className="mb-menu__user-info">
+          <h3 className="welcome-text">Welcome {user.displayName}</h3>
+          {user?.avatar ? (
+            <img
+              src={user.avatar}
+              alt="user-avatar"
+              className="mb-menu__user-ava"
+            />
+          ) : (
+            <div className="mb-menu__user-ava">
+              <DefaultAvatar />
+            </div>
+          )}
+        </div>
         <ul className="mb-menu__list">
-          <Link
-            to={"/"}
-            className="mb-menu__item"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            Home
-            <div></div>
-          </Link>
-          <Link
-            to={"/english"}
-            className="mb-menu__item"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            English
-            <div></div>
-          </Link>
-          <Link
-            to={"/math"}
-            className="mb-menu__item"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            Math
-            <div></div>
-          </Link>
-          <Link
-            to={"/program"}
-            className="mb-menu__item"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            Program
-            <div></div>
-          </Link>
+          {pages.map((page, index) => (
+            <Link
+              to={page.path}
+              className="mb-menu__item"
+              onClick={() => setShowMenu(!showMenu)}
+              key={index}
+            >
+              {page.name}
+              <div></div>
+            </Link>
+          ))}
+
           <button className="mb-menu__logout-btn" onClick={handleLogoutUser}>
             Logout
           </button>

@@ -1,20 +1,20 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/NavBar";
+import Header from "./components/layout/Header/Header";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
+import { loadUser } from "./redux/apiRequest/authRequest";
 import {
   AuthPage,
   EnglishPage,
   EnglishTest,
   HomePage,
+  SettingPage,
   UnsupportedPage,
 } from "./views";
-import ProtectedRoute from "./components/routing/ProtectedRoute";
-import { loadUser } from "./redux/apiRequest/authRequest";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import FolderLanding from "./views/folder/FolderLanding";
-import Header from "./components/layout/Header/Header";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +24,6 @@ function App() {
   }, []);
   return (
     <div className="App">
-      {/* <Navbar /> */}
       {isAuthenticated && <Header />}
       <Routes>
         <Route
@@ -75,6 +74,14 @@ function App() {
           element={
             <ProtectedRoute>
               <UnsupportedPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/setting"
+          element={
+            <ProtectedRoute>
+              <SettingPage />
             </ProtectedRoute>
           }
         />

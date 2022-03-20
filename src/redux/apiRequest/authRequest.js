@@ -10,6 +10,7 @@ import {
 import { apiUrl } from "../constant";
 import setAuthToken from "../../utils/setAuthToken";
 import { getDoneLessons } from "../slices/lessonSlice";
+import { loadCurrentUser } from "../slices/userSlice";
 
 export const registerUser = async (dispatch, newUser) => {
   dispatch(authStart());
@@ -37,6 +38,7 @@ export const loadUser = async (dispatch) => {
 
     if (res.data.success) {
       dispatch(loadUserSuccess(res.data.user));
+      dispatch(loadCurrentUser(res.data.user));
       dispatch(getDoneLessons(res.data.user.doneLessons));
     }
     return res.data.success;
@@ -52,6 +54,7 @@ export const loginUser = async (dispatch, user) => {
     const res = await axios.post(`${apiUrl}/auth/login`, user);
     if (res.data.success) {
       dispatch(loginSuccess(res.data));
+      dispatch(loadCurrentUser(res.data.user));
       if (localStorage["accessToken"]) {
         console.log("here");
         setAuthToken(localStorage["accessToken"]);

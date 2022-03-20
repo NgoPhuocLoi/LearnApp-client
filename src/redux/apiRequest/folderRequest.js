@@ -30,9 +30,11 @@ export const createFolder = async (dispatch, newFolder) => {
     if (res.data.success) {
       dispatch(createFolderSuccess(res.data.folder));
     }
+    return res.data.success;
   } catch (error) {
     console.log(error);
     dispatch(requestFolderFailed());
+    return error.response.data.success;
   }
 };
 

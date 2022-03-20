@@ -58,12 +58,28 @@ function EditLessonModal({ setShowToast }) {
         message: "Updated successfully!!!",
         isShow: true,
       });
+
+      setTimeout(() => {
+        setShowToast({
+          type: "",
+          message: "",
+          isShow: true,
+        });
+      }, 2000);
     } else {
       setShowToast({
         type: "danger",
         message: "Updated Failed. PLease try again!!!",
         isShow: true,
       });
+
+      setTimeout(() => {
+        setShowToast({
+          type: "",
+          message: "",
+          isShow: true,
+        });
+      }, 2000);
     }
     getAllLessons(dispatch);
   };
