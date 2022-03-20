@@ -29,7 +29,7 @@ const MobileMenu = ({ showMenu, setShowMenu }) => {
       ></div>
       <div className="mb-menu-container">
         <div className="mb-menu__user-info">
-          <h3 className="welcome-text">Welcome {user.displayName}</h3>
+          <h3 className="welcome-text">Welcome {user?.displayName}</h3>
           {user?.avatar ? (
             <img
               src={user.avatar}
