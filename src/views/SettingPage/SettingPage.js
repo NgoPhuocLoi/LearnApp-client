@@ -4,7 +4,9 @@ import ToastNotification from "../../components/ToastNotification/ToastNotificat
 import { updateUser } from "../../redux/apiRequest/userRequest";
 import DefaultAvatar from "../../components/user/DefaultAvatar/DefaultAvatar";
 import FileBase64 from "react-file-base64";
+import { Spinner } from "react-bootstrap";
 import "./SettingPage.scss";
+import SettingButtons from "./components/SettingButtons";
 
 const SettingPage = () => {
   const dispatch = useDispatch();
@@ -12,9 +14,8 @@ const SettingPage = () => {
     status: false,
     field: "",
   });
-  const { user } = useSelector((state) => state.user);
+  const { user, isFetching } = useSelector((state) => state.user);
   const [image, setImage] = useState(user.avatar);
-
   const [userForm, setUserForm] = useState({
     name: user.displayName,
     email: user.email,
@@ -48,7 +49,11 @@ const SettingPage = () => {
 
   const handleOffEditMode = () => {
     setEdit({ status: false, field: "" });
-    setUserForm({ name: user.displayName, email: user.email });
+    setUserForm({
+      name: user.displayName,
+      email: user.email,
+    });
+    setImage(user.avatar);
   };
 
   const handleSubmitUpdateUser = async (field) => {
@@ -103,31 +108,13 @@ const SettingPage = () => {
                 Your name will be displayed on personal page.
               </p>
             </div>
-            <div className="setting__field-btn">
-              {isEdit.status && isEdit.field === "name" ? (
-                <div className="setting__field-btns">
-                  <button
-                    className="setting__field-btn-save"
-                    onClick={() => handleSubmitUpdateUser("displayName")}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="setting__field-btn-cancel"
-                    onClick={handleOffEditMode}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="setting__field-btn-edit"
-                  onClick={() => handleOnEditMode("name")}
-                >
-                  Edit
-                </button>
-              )}
-            </div>
+            <SettingButtons
+              field="name"
+              isEdit={isEdit}
+              handleOnEditMode={handleOnEditMode}
+              handleOffEditMode={handleOffEditMode}
+              handleSubmitUpdateUser={handleSubmitUpdateUser}
+            />
           </div>
           <div className="setting__field-wrapper">
             <div className="setting__field-content d-flex">
@@ -145,31 +132,13 @@ const SettingPage = () => {
                 {image ? <img src={image} /> : <DefaultAvatar />}
               </div>
             </div>
-            <div className="setting__field-btn">
-              {isEdit.status && isEdit.field === "avatar" ? (
-                <div className="setting__field-btns">
-                  <button
-                    className="setting__field-btn-save"
-                    onClick={() => handleSubmitUpdateUser("avatar")}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="setting__field-btn-cancel"
-                    onClick={handleOffEditMode}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="setting__field-btn-edit"
-                  onClick={() => handleOnEditMode("avatar")}
-                >
-                  Edit
-                </button>
-              )}
-            </div>
+            <SettingButtons
+              field={"avatar"}
+              isEdit={isEdit}
+              handleOnEditMode={handleOnEditMode}
+              handleOffEditMode={handleOffEditMode}
+              handleSubmitUpdateUser={handleSubmitUpdateUser}
+            />
           </div>
           <div className="setting__field-wrapper">
             <div className="setting__field-content">
@@ -185,31 +154,13 @@ const SettingPage = () => {
               />
               <p className="setting__field-desc">Your email.</p>
             </div>
-            <div className="setting__field-btn">
-              {isEdit.status && isEdit.field === "email" ? (
-                <div className="setting__field-btns">
-                  <button
-                    className="setting__field-btn-save"
-                    onClick={() => handleSubmitUpdateUser("email")}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="setting__field-btn-cancel"
-                    onClick={handleOffEditMode}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="setting__field-btn-edit"
-                  onClick={() => handleOnEditMode("email")}
-                >
-                  Edit
-                </button>
-              )}
-            </div>
+            <SettingButtons
+              field={"email"}
+              isEdit={isEdit}
+              handleOnEditMode={handleOnEditMode}
+              handleOffEditMode={handleOffEditMode}
+              handleSubmitUpdateUser={handleSubmitUpdateUser}
+            />
           </div>
         </div>
       </div>

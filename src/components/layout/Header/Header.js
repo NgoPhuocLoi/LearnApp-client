@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import menuIcon from "../../../assets/list.svg";
 import logo from "../../../assets/logo.png";
-import { logout } from "../../../redux/apiRequest/authRequest";
 import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import UserMenu from "../UserMenu/UserMenu";
@@ -79,7 +78,12 @@ const Header = () => {
             </div>
           )}
 
-          {showUserMenu && <UserMenu setShowUserMenu={setShowUserMenu} />}
+          {showUserMenu && (
+            <UserMenu
+              setShowUserMenu={setShowUserMenu}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
 
           <img
             src={menuIcon}

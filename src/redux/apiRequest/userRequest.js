@@ -7,7 +7,7 @@ import {
 } from "../slices/userSlice";
 
 export const updateUser = async (dispatch, field, data) => {
-  dispatch(updateUserStart);
+  dispatch(updateUserStart());
 
   try {
     const res = await axios.put(`${apiUrl}/user/update`, {
@@ -17,6 +17,6 @@ export const updateUser = async (dispatch, field, data) => {
     if (res.data.success) dispatch(updateUserSuccess({ field, data }));
   } catch (error) {
     console.log(error);
-    dispatch(updateUserFailed);
+    dispatch(updateUserFailed());
   }
 };

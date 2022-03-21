@@ -5,7 +5,7 @@ import { logout } from "../../../redux/apiRequest/authRequest";
 import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import "./UserMenu.scss";
 
-const UserMenu = ({ setShowUserMenu }) => {
+const UserMenu = ({ setShowUserMenu, setCurrentPage }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ const UserMenu = ({ setShowUserMenu }) => {
   const handleNavigate = () => {
     setShowUserMenu(false);
     navigate("/setting");
+    setCurrentPage(-1);
   };
 
   return (
