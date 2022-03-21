@@ -7,8 +7,7 @@ import AddLessonModal from "../../components/lessons/AddLessonModal";
 import EditLessonModal from "../../components/lessons/EditLessonModal";
 import Lessons from "../../components/lessons/Lessons";
 import Loading from "../../components/Loading";
-import TabList from "../../components/TabList";
-import ToastMessage from "../../components/ToastMessage";
+import { TabList } from "../../components/layout";
 import ToastNotification from "../../components/ToastNotification/ToastNotification";
 import "./FolderLanding.scss";
 

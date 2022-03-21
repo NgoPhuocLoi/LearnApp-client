@@ -2,7 +2,7 @@ import React from "react";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { LoginForm, RegisterForm } from "../../../components/auth";
+import { LoginForm, RegisterForm, WaitingLoad } from "../../../components/auth";
 import "./AuthPage.scss";
 function LoginPage({ type }) {
   const { isAuthenticated, isFetching } = useSelector((state) => state.auth);
@@ -12,7 +12,7 @@ function LoginPage({ type }) {
   return (
     <div className="landing-background app__flex">
       {isFetching ? (
-        <Spinner animation="border" variant="white" />
+        <WaitingLoad />
       ) : type === "login" ? (
         <LoginForm />
       ) : (

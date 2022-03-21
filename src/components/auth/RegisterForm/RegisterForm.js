@@ -79,7 +79,8 @@ function LoginForm() {
         </div>
 
         <button className="form__button" onClick={handleSubmitRegisterUser}>
-          {isFetching ? <Spinner animation="border" /> : "Register"}
+          Register
+          {/* {isFetching ? <Spinner animation="border" /> : "Register"} */}
         </button>
         {error && <h3 className="message">{errorMsg}</h3>}
       </form>

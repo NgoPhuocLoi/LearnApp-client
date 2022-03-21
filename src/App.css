@@ -23,8 +23,18 @@ a {
   text-decoration: none;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 10px;
+}
+
 :root {
   --primary-color: #ff7f27;
+  --secondary-color: #f7f5c9;
   --danger-color: #dc3545;
   --header-height: 70px;
 }
@@ -46,30 +56,4 @@ a {
   justify-content: center;
   align-items: center;
   z-index: 1056;
-}
-
-.tab-list {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding: 0 20px;
-}
-
-.tab-item button {
-  margin-left: 20px;
-  border: none;
-  padding: 6px 26px;
-  border-radius: 6px;
-}
-
-@media all and (max-width: 780px) {
-  .tab-list {
-    max-width: 100%;
-    overflow-y: auto;
-  }
-}
-
-.tab-item button.active {
-  background-color: #f7f5c9;
 }

@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   margin-top: var(--header-height);
-  transition: 1s;
+  transition: 0.6s;
   transform: translateX(100%);
 
   &.active {
@@ -79,6 +79,11 @@
 
       &:hover {
         background-color: #f0f0f0;
+      }
+
+      &.active {
+        background-color: var(--secondary-color);
+        // color: #fff;
       }
     }
 

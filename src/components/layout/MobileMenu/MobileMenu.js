@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/apiRequest/authRequest";
@@ -14,6 +14,7 @@ const pages = [
 ];
 
 const MobileMenu = ({ showMenu, setShowMenu }) => {
+  const [activePage, setActivePage] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -46,8 +47,13 @@ const MobileMenu = ({ showMenu, setShowMenu }) => {
           {pages.map((page, index) => (
             <Link
               to={page.path}
-              className="mb-menu__item"
-              onClick={() => setShowMenu(!showMenu)}
+              className={
+                activePage === index ? "mb-menu__item active" : "mb-menu__item"
+              }
+              onClick={() => {
+                setShowMenu(!showMenu);
+                setActivePage(index);
+              }}
               key={index}
             >
               {page.name}

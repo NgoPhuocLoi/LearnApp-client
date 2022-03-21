@@ -1,0 +1,34 @@
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .waiting-content {
+    position: relative;
+
+    .waiting-img {
+      width: 100%;
+    }
+
+    .waiting-message {
+      position: absolute;
+      right: -16%;
+      top: 30px;
+      max-width: 300px;
+      padding: 20px 30px;
+      border-radius: 10px;
+      background-color: #fff;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid #fff;
+        position: absolute;
+        left: -30px;
+      }
+    }
+  }
+}

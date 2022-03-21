@@ -58,7 +58,7 @@ function LoginForm() {
           className="form__button form__button-login"
           onClick={handleSubmitLogin}
         >
-          {isFetching ? <Spinner animation="border" /> : "Login"}
+          Login
         </button>
         {error && <h3 className="message">{errorMsg}</h3>}
       </form>
