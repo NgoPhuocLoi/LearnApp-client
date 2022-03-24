@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/apiRequest/authRequest";
+import { setCurrentPage } from "../../../redux/slices/pageSlice";
 import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import "./UserMenu.scss";
 
-const UserMenu = ({ setShowUserMenu, setCurrentPage }) => {
+const UserMenu = ({ setShowUserMenu }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const UserMenu = ({ setShowUserMenu, setCurrentPage }) => {
   const handleNavigate = () => {
     setShowUserMenu(false);
     navigate("/setting");
-    setCurrentPage(-1);
+    dispatch(setCurrentPage(-1));
   };
 
   return (

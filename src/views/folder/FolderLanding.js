@@ -15,7 +15,7 @@ const FolderLanding = () => {
   const { currentFolder } = useSelector((state) => state.folder);
   const [isOpenAddModal, setOpenAddModal] = useState(false);
   const lessonState = useSelector((state) => state.lesson);
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [lessonType, setLessonType] = useState("ALL");
   const [layout, setLayout] = useState(1);
   const [showToast, setShowToast] = useState({
@@ -27,7 +27,7 @@ const FolderLanding = () => {
     <div className="folder-landing">
       <Breadcrumb className="mt-3 ms-4">
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to="/study">Study</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           <Link to="/english">English</Link>

@@ -4,6 +4,7 @@ import {
   authReducer,
   folderReducer,
   userReducer,
+  pageReducer,
 } from "./slices";
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     auth: authReducer,
     folder: folderReducer,
     user: userReducer,
+    page: pageReducer,
   },
 });
 

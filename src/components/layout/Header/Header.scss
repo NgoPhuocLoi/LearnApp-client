@@ -72,6 +72,17 @@
         }
       }
 
+      .header__nav-icon {
+        // display: none;
+        margin-left: 4px;
+        width: 12px;
+        margin-bottom: 2px;
+
+        svg {
+          display: none;
+        }
+      }
+
       &:last-child {
         margin-right: 0;
       }

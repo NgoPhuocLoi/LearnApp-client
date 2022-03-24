@@ -38,7 +38,7 @@ function EnglishPage() {
     <div className="english-page">
       <Breadcrumb className="ms-4 mt-3">
         <Breadcrumb.Item>
-          <Link to="/">Home</Link>
+          <Link to="/study">Study</Link>
         </Breadcrumb.Item>
 
         <Breadcrumb.Item active>English</Breadcrumb.Item>

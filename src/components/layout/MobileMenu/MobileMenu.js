@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/apiRequest/authRequest";
+import { setCurrentPage } from "../../../redux/slices/pageSlice";
 import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import "./MobileMenu.scss";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "English", path: "/english" },
-  { name: "Math", path: "/math" },
-  { name: "Program", path: "/program" },
+  { name: "Study", path: "/study" },
+  { name: "Community", path: "/community" },
+  { name: "Contact", path: "/contact" },
   { name: "Setting", path: "/setting" },
 ];
 
 const MobileMenu = ({ showMenu, setShowMenu }) => {
-  const [activePage, setActivePage] = useState(0);
+  const { currentPage } = useSelector((state) => state.page);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -48,11 +49,11 @@ const MobileMenu = ({ showMenu, setShowMenu }) => {
             <Link
               to={page.path}
               className={
-                activePage === index ? "mb-menu__item active" : "mb-menu__item"
+                currentPage === index ? "mb-menu__item active" : "mb-menu__item"
               }
               onClick={() => {
                 setShowMenu(!showMenu);
-                setActivePage(index);
+                dispatch(setCurrentPage(index));
               }}
               key={index}
             >

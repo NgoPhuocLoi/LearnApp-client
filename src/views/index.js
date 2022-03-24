@@ -4,3 +4,4 @@ export { default as UnsupportedPage } from "./UnsupportedPage/UnsupportedPage";
 export { default as AuthPage } from "./auth/AuthPage/AuthPage";
 export { default as EnglishTest } from "./EnglishTest/EnglishTest";
 export { default as SettingPage } from "./SettingPage/SettingPage";
+export { default as StudyPage } from "./Study/StudyPage";

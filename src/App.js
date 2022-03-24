@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/layout/Footer/Footer";
 import Header from "./components/layout/Header/Header";
 import ProtectedRoute from "./components/routing/ProtectedRoute";
 import { loadUser } from "./redux/apiRequest/authRequest";
@@ -13,12 +14,14 @@ import {
   HomePage,
   SettingPage,
   UnsupportedPage,
+  StudyPage,
 } from "./views";
 import FolderLanding from "./views/folder/FolderLanding";
 
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isStudying } = useSelector((state) => state.user);
   useEffect(() => {
     loadUser(dispatch);
   }, []);
@@ -36,6 +39,15 @@ function App() {
         />
         <Route path="/login" element={<AuthPage type="login" />} />
         <Route path="/register" element={<AuthPage type="register" />} />
+
+        <Route
+          path="/study"
+          element={
+            <ProtectedRoute>
+              <StudyPage />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/english"
@@ -85,7 +97,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/chemical"
+          element={
+            <ProtectedRoute>
+              <UnsupportedPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+      {isAuthenticated && !isStudying && <Footer />}
     </div>
   );
 }

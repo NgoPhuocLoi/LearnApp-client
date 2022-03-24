@@ -6,6 +6,7 @@ const userSlice = createSlice({
     user: null,
     isFetching: false,
     error: false,
+    isStudying: false,
   },
   reducers: {
     updateUserStart: (state) => {
@@ -23,6 +24,9 @@ const userSlice = createSlice({
     loadCurrentUser: (state, action) => {
       state.user = action.payload;
     },
+    setStudying: (state, action) => {
+      state.isStudying = action.payload;
+    },
   },
 });
 
@@ -32,5 +36,6 @@ export const {
   updateUserFailed,
   updateUserSuccess,
   loadCurrentUser,
+  setStudying,
 } = actions;
 export default reducer;
