@@ -1,7 +1,7 @@
 import React from "react";
 import "./StudyPage.scss";
 
-import { courses } from "./courses";
+import { courses } from "../courses";
 import { useNavigate } from "react-router-dom";
 
 const StudyPage = () => {

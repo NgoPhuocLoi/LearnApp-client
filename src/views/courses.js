@@ -4,7 +4,7 @@ import {
   programIcon,
   mathIcon,
   physicsIcon,
-} from "../../assets/course-icon";
+} from "../assets/course-icon";
 
 export const courses = [
   {

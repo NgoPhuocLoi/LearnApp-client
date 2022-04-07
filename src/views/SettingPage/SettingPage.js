@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from "react";
+import FileBase64 from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import ToastNotification from "../../components/ToastNotification/ToastNotification";
-import { updateUser } from "../../redux/apiRequest/userRequest";
 import DefaultAvatar from "../../components/user/DefaultAvatar/DefaultAvatar";
-import FileBase64 from "react-file-base64";
-import { Spinner } from "react-bootstrap";
-import "./SettingPage.scss";
+import { updateUser } from "../../redux/apiRequest/userRequest";
+import { setShowToast } from "../../redux/slices/utilsSlice";
 import SettingButtons from "./components/SettingButtons";
+import "./SettingPage.scss";
 
 const SettingPage = () => {
   const dispatch = useDispatch();
+  const { showToast } = useSelector((state) => state.utils);
   const [isEdit, setEdit] = useState({
     status: false,
     field: "",
   });
-  const { user, isFetching } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const [image, setImage] = useState(user.avatar);
   const [userForm, setUserForm] = useState({
     name: user.displayName,
     email: user.email,
-  });
-  const [showToast, setShowToast] = useState({
-    type: "",
-    message: "",
-    isShow: false,
   });
 
   useEffect(() => {
@@ -71,18 +67,22 @@ const SettingPage = () => {
     }
     await updateUser(dispatch, field, data);
     setEdit({ status: false, field: "" });
-    setShowToast({
-      message: "Updated successfully",
-      type: "success",
-      isShow: true,
-    });
+    dispatch(
+      setShowToast({
+        message: "Updated successfully",
+        type: "success",
+        isShow: true,
+      })
+    );
 
     setTimeout(() => {
-      setShowToast({
-        message: "",
-        type: "",
-        isShow: false,
-      });
+      dispatch(
+        setShowToast({
+          message: "",
+          type: "",
+          isShow: false,
+        })
+      );
     }, 2000);
   };
 
@@ -165,7 +165,7 @@ const SettingPage = () => {
         </div>
       </div>
 
-      {showToast.isShow && <ToastNotification showToast={showToast} />}
+      {showToast.isShow && <ToastNotification />}
     </>
   );
 };

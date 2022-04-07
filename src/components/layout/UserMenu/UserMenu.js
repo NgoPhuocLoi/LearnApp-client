@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../../../redux/apiRequest/authRequest";
-import { setCurrentPage } from "../../../redux/slices/pageSlice";
+import {
+  setCurrentPage,
+  setInDashboard,
+} from "../../../redux/slices/pageSlice";
 import DefaultAvatar from "../../user/DefaultAvatar/DefaultAvatar";
 import "./UserMenu.scss";
 
-const UserMenu = ({ setShowUserMenu }) => {
+const UserMenu = ({ setShowUserMenu, dashboard }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,9 +35,12 @@ const UserMenu = ({ setShowUserMenu }) => {
     navigate("/login");
   };
 
-  const handleNavigate = () => {
+  const handleNavigate = (path) => {
+    if (path === "/dashboard") {
+      dispatch(setInDashboard(true));
+    }
     setShowUserMenu(false);
-    navigate("/setting");
+    navigate(path);
     dispatch(setCurrentPage(-1));
   };
 
@@ -55,11 +61,34 @@ const UserMenu = ({ setShowUserMenu }) => {
         </div>
       </div>
       <ul className="user-menu__list">
-        <li className="user-menu__item" onClick={handleNavigate}>
-          <Link to="/">Info</Link>
+        <li
+          className="user-menu__item"
+          onClick={() => handleNavigate("/setting")}
+        >
+          <p>Info</p>
         </li>
+        {user.isAdmin &&
+          (dashboard ? (
+            <li
+              className="user-menu__item"
+              onClick={() => {
+                handleNavigate("/");
+                dispatch(setInDashboard(false));
+                dispatch(setCurrentPage(0));
+              }}
+            >
+              <p>User view</p>
+            </li>
+          ) : (
+            <li
+              className="user-menu__item"
+              onClick={() => handleNavigate("/dashboard")}
+            >
+              <p>Dashboard</p>
+            </li>
+          ))}
         <li className="user-menu__item" onClick={handleLogoutUser}>
-          <Link to="/">Logout</Link>
+          <p>Logout</p>
         </li>
       </ul>
     </div>

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addLesson, getAllLessons } from "../../redux/apiRequest/lessonRequest";
+import { setShowToast } from "../../redux/slices/utilsSlice";
 
-function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
+function AddLessonModal({ isOpenAddModal, setOpenAddModal }) {
   const dispatch = useDispatch();
   const { currentFolder } = useSelector((state) => state.folder);
 
@@ -37,18 +38,32 @@ function AddLessonModal({ isOpenAddModal, setOpenAddModal, setShowToast }) {
     });
     handleClose();
     if (success) {
-      setShowToast({
-        type: "success",
-        message: "Add successfully!!!",
-        isShow: true,
-      });
+      dispatch(
+        setShowToast({
+          type: "success",
+          message: "Add successfully!!!",
+          isShow: true,
+        })
+      );
     } else {
-      setShowToast({
-        type: "danger",
-        message: "Add Failed. PLease try again!!!",
-        isShow: true,
-      });
+      dispatch(
+        setShowToast({
+          type: "danger",
+          message: "Add Failed. PLease try again!!!",
+          isShow: true,
+        })
+      );
     }
+
+    setTimeout(() => {
+      dispatch(
+        setShowToast({
+          type: "",
+          message: "",
+          isShow: false,
+        })
+      );
+    }, 2000);
     getAllLessons(dispatch);
   };
   return (

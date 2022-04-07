@@ -18,11 +18,8 @@ const FolderLanding = () => {
   const { user } = useSelector((state) => state.user);
   const [lessonType, setLessonType] = useState("ALL");
   const [layout, setLayout] = useState(1);
-  const [showToast, setShowToast] = useState({
-    type: "",
-    message: "",
-    isShow: false,
-  });
+  const { showToast } = useSelector((state) => state.utils);
+
   return (
     <div className="folder-landing">
       <Breadcrumb className="mt-3 ms-4">
@@ -52,11 +49,9 @@ const FolderLanding = () => {
           <AddLessonModal
             isOpenAddModal={isOpenAddModal}
             setOpenAddModal={setOpenAddModal}
-            showToast={showToast}
-            setShowToast={setShowToast}
           />
-          <EditLessonModal setShowToast={setShowToast} />
-          {showToast.isShow && <ToastNotification showToast={showToast} />}
+          <EditLessonModal />
+          {showToast.isShow && <ToastNotification />}
         </>
       )}
       {lessonState.isFetching && <Loading />}

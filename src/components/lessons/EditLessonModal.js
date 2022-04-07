@@ -9,8 +9,9 @@ import {
   showUpdateModal,
   updateUpdatedLesson,
 } from "../../redux/slices/lessonSlice";
+import { setShowToast } from "../../redux/slices/utilsSlice";
 
-function EditLessonModal({ setShowToast }) {
+function EditLessonModal() {
   const dispatch = useDispatch();
   const updatedLesson = useSelector((state) => state.lesson.updatedLesson);
   const isShowUpdateModal = useSelector(
@@ -53,34 +54,31 @@ function EditLessonModal({ setShowToast }) {
     );
     handleClose();
     if (success) {
-      setShowToast({
-        type: "success",
-        message: "Updated successfully!!!",
-        isShow: true,
-      });
-
-      setTimeout(() => {
+      dispatch(
         setShowToast({
-          type: "",
-          message: "",
+          type: "success",
+          message: "Updated successfully!!!",
           isShow: true,
-        });
-      }, 2000);
+        })
+      );
     } else {
-      setShowToast({
-        type: "danger",
-        message: "Updated Failed. PLease try again!!!",
-        isShow: true,
-      });
-
-      setTimeout(() => {
+      dispatch(
+        setShowToast({
+          type: "danger",
+          message: "Updated Failed. PLease try again!!!",
+          isShow: true,
+        })
+      );
+    }
+    setTimeout(() => {
+      dispatch(
         setShowToast({
           type: "",
           message: "",
-          isShow: true,
-        });
-      }, 2000);
-    }
+          isShow: false,
+        })
+      );
+    }, 2000);
     getAllLessons(dispatch);
   };
   return (

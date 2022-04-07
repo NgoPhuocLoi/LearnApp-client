@@ -15,19 +15,22 @@ import {
   SettingPage,
   UnsupportedPage,
   StudyPage,
+  AdminDashboard,
 } from "./views";
 import FolderLanding from "./views/folder/FolderLanding";
+import { Courses, Users } from "./views/Admin/components";
 
 function App() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { isStudying } = useSelector((state) => state.user);
+  const { inDashboard } = useSelector((state) => state.page);
   useEffect(() => {
     loadUser(dispatch);
   }, []);
   return (
     <div className="App">
-      {isAuthenticated && <Header />}
+      {isAuthenticated && !inDashboard && <Header />}
       <Routes>
         <Route
           path="/"
@@ -105,8 +108,19 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="courses" element={<Courses />} />
+          <Route path="users" element={<Users />} />
+        </Route>
       </Routes>
-      {isAuthenticated && !isStudying && <Footer />}
+      {isAuthenticated && !inDashboard && <Footer />}
     </div>
   );
 }

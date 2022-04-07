@@ -15,15 +15,10 @@ import "./EnglishPage.scss";
 
 function EnglishPage() {
   const dispatch = useDispatch();
+  const { showToast } = useSelector((state) => state.utils);
   const folderState = useSelector((state) => state.folder);
   const { user } = useSelector((state) => state.auth);
   const [isOpenAddModal, setOpenAddModal] = useState(false);
-
-  const [showToast, setShowToast] = useState({
-    type: "",
-    message: "",
-    isShow: false,
-  });
 
   const fetchData = async () => {
     await getAllLessons(dispatch);
@@ -56,10 +51,9 @@ function EnglishPage() {
           <AddFolderModal
             isOpenAddModal={isOpenAddModal}
             setOpenAddModal={setOpenAddModal}
-            setShowToast={setShowToast}
           />
           <EditFolderModal />
-          {showToast.isShow && <ToastNotification showToast={showToast} />}
+          {showToast.isShow && <ToastNotification />}
         </>
       )}
 
